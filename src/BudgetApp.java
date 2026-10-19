@@ -39,6 +39,10 @@ public class BudgetApp {
         int difference = budgetDifference(categories);
         System.out.println();
         System.out.println("Total over/under budget: " + difference);
+
+        System.out.println();
+        System.out.println("Spending chart (each * = $50):");
+        printBarChart(categories);
     }
 
     /**
@@ -59,5 +63,19 @@ public class BudgetApp {
             total += category.getDifference();
         }
         return (int) Math.round(total);
+    }
+
+    public static void printBarChart(List<BudgetCategory> categories){
+        int longestName = 0;
+        for (BudgetCategory category : categories){
+            longestName = Math.max(longestName, category.getName().length());
+        }
+
+        for (BudgetCategory category : categories) {
+            int stars = (int) Math.round(category.getSpent() / 50);
+            String label = String.format("%-" + (longestName + 1) + "s", category.getName() + ":");
+            System.out.println(label + " | " + "*".repeat(stars));
+
+      }
     }
 }
