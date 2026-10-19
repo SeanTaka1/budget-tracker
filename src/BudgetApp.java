@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Collections;
 
 public class BudgetApp {
     public static void main(String[] args) {
@@ -28,6 +29,16 @@ public class BudgetApp {
         }
 
         System.out.println(categories);
+
+        Collections.sort(categories, Collections.reverseOrder());
+
+        System.out.println();
+        System.out.println("Sorted from most overspent to least:");
+        System.out.println(categories);
+
+        int difference = budgetDifference(categories);
+        System.out.println();
+        System.out.println("Total over/under budget: " + difference);
     }
 
     /**
@@ -43,9 +54,10 @@ public class BudgetApp {
      * @return the total amount over/under budget
      */
     public static int budgetDifference(List<BudgetCategory> categories) {
-        // TODO: You will implement this method in Wave 4
-        // Note that this method SHOULD NOT have a print statement.
-        // It should instead return the value.
-        return -1;
+        double total = 0;
+        for (BudgetCategory category : categories) {
+            total += category.getDifference();
+        }
+        return (int) Math.round(total);
     }
 }
